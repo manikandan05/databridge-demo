@@ -27,15 +27,12 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          # Auto-enables Pages via GitHub Actions if not already on
-          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload only the demo/ folder; index.html is at its root
-          path: 'demo'
+          # index.html and assets are at the repo root
+          path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
