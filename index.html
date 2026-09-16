@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenDataBridge — InnerSource Demo</title>
+  <style>
+    :root {
+      --blue: #1d4ed8;
+      --blue-lt: #3b82f6;
+      --ink: #0f172a;
+      --white: #ffffff;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── SNAP CONTAINER ── */
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+    }
+
+    #deck {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      /* hide scrollbar visually */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    #deck::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      z-index: 999;
+      transition: width .3s ease;
+      pointer-events: none;
+    }
+
+    /* ── NAV DOTS ── */
+    #nav-dots {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      z-index: 998;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .3);
+      cursor: pointer;
+      border: 2px solid rgba(255, 255, 255, .45);
+      transition: background .2s, transform .2s, border-color .2s;
+      padding: 0;
+    }
+
+    .dot.active {
+      background: #3b82f6;
+      transform: scale(1.4);
+      border-color: #3b82f6;
+    }
+
+    /* ── ARROW BUTTONS ── */
+    #nav-prev,
+    #nav-next {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 998;
+      background: rgba(15, 23, 42, .7);
+      border: 1px solid rgba(255, 255, 255, .2);
+      color: rgba(255, 255, 255, .7);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, opacity .15s;
+      backdrop-filter: blur(4px);
+    }
+
+    #nav-prev {
+      top: 14px;
+    }
+
+    #nav-next {
+      bottom: 14px;
+    }
+
+    #nav-prev:hover,
+    #nav-next:hover {
+      background: rgba(59, 130, 246, .5);
+    }
+
+    #nav-prev.hidden,
+    #nav-next.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ── SLIDE SHELL ── */
+    .slide {
+      height: 100vh;
+      min-height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 52px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-inner {
+      max-width: 860px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .slide-inner.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── SLIDE THEMES ── */
+    .s-dark {
+      background: #0f172a;
+      color: #f8fafc;
+    }
+
+    .s-blue {
+      background: #1e3a5f;
+      color: #f0f8ff;
+    }
+
+    .s-grad {
+      background: linear-gradient(140deg, #1e1b4b 0%, #1e3a5f 100%);
+      color: #f0f8ff;
+    }
+
+    .s-white {
+      background: #ffffff;
+      color: #0f172a;
+    }
+
+    .s-green {
+      background: #052e16;
+      color: #f0fdf4;
+    }
+
+    .s-indigo {
+      background: #1e1b4b;
+      color: #eef2ff;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .eyebrow {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .s-white .eyebrow {
+      color: #2563eb;
+    }
+
+    .s-green .eyebrow {
+      color: #6ee7b7;
+    }
+
+    .slide h1 {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .slide h2 {
+      font-size: clamp(1.35rem, 3.2vw, 2rem);
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .slide h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .slide p {
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+
+    .big-quote {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-style: italic;
+      line-height: 1.55;
+      border-left: 5px solid #3b82f6;
+      padding-left: 20px;
+      color: #bfdbfe;
+      margin: 20px 0;
+    }
+
+    .s-green .big-quote {
+      border-color: #10b981;
+      color: #a7f3d0;
+    }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 700;
+      margin: 3px 4px 3px 0;
+    }
+
+    .b-blue {
+      background: #1d4ed8;
+      color: #fff;
+    }
+
+    .b-indigo {
+      background: #4338ca;
+      color: #fff;
+    }
+
+    .b-teal {
+      background: #0d9488;
+      color: #fff;
+    }
+
+    .b-amber {
+      background: #d97706;
+      color: #fff;
+    }
+
+    .b-green {
+      background: #15803d;
+      color: #fff;
+    }
+
+    .b-slate {
+      background: #475569;
+      color: #fff;
+    }
+
+    .b-purple {
+      background: #7c3aed;
+      color: #fff;
+    }
+
+    .b-orange {
+      background: #ea6500;
+      color: #fff;
+    }
+
+    /* ── CARD GRID ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 12px;
+      padding: 16px 14px;
+    }
+
+    .s-white .card {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 7px;
+    }
+
+    .card h3 {
+      font-size: .92rem;
+    }
+
+    .card p {
+      font-size: .83rem;
+      opacity: .82;
+      margin-bottom: 0;
+    }
+
+    /* ── TWO-COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .col-box {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .s-white .col-box {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    /* ── FLOW STEPS ── */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 16px;
+    }
+
+    .flow-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .s-white .flow-item {
+      border-bottom-color: #e2e8f0;
+    }
+
+    .flow-item:last-child {
+      border-bottom: none;
+    }
+
+    .flow-num {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 800;
+      font-size: .82rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flow-text h4 {
+      font-size: .92rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .flow-text p {
+      font-size: .84rem;
+      opacity: .8;
+      margin-bottom: 0;
+    }
+
+    /* ── PHASE TIMELINE ── */
+    .phases {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .phase-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .phase-num {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: #fff;
+      font-weight: 800;
+      font-size: .88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .p1 {
+      background: #3b82f6
+    }
+
+    .p2 {
+      background: #8b5cf6
+    }
+
+    .p3 {
+      background: #06b6d4
+    }
+
+    .p4 {
+      background: #10b981
+    }
+
+    .phase-body h4 {
+      font-size: .96rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .phase-body p {
+      font-size: .84rem;
+      opacity: .82;
+      margin-bottom: 0;
+    }
+
+    /* ── HIGHLIGHT BOX ── */
+    .hi-box {
+      background: rgba(59, 130, 246, .14);
+      border: 1px solid rgba(59, 130, 246, .38);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-top: 14px;
+    }
+
+    .hi-box.green {
+      background: rgba(16, 185, 129, .14);
+      border-color: rgba(16, 185, 129, .38);
+    }
+
+    .hi-box p {
+      margin-bottom: 0;
+    }
+
+    /* ── STYLED LIST ── */
+    .slist {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+    }
+
+    .slist li {
+      padding: 7px 0 7px 24px;
+      position: relative;
+      font-size: .92rem;
+      line-height: 1.5;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .s-white .slist li {
+      border-bottom-color: #e2e8f0;
+    }
+
+    .slist li:last-child {
+      border-bottom: none;
+    }
+
+    .slist li::before {
+      content: "›";
+      position: absolute;
+      left: 5px;
+      color: #3b82f6;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .s-green .slist li::before {
+      color: #10b981;
+    }
+
+    /* ── STAT ROW ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #60a5fa;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: .78rem;
+      opacity: .75;
+    }
+
+    /* ── TABLE ── */
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: .85rem;
+    }
+
+    .tbl th {
+      background: rgba(255, 255, 255, .1);
+      padding: 9px 11px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 2px solid rgba(255, 255, 255, .15);
+    }
+
+    .tbl td {
+      padding: 8px 11px;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      vertical-align: top;
+    }
+
+    .s-white .tbl th {
+      background: #f1f5f9;
+      border-bottom-color: #cbd5e1;
+    }
+
+    .s-white .tbl td {
+      border-bottom-color: #e2e8f0;
+    }
+
+    .tbl tr:last-child td {
+      border-bottom: none;
+    }
+
+    .hi-row td {
+      background: rgba(59, 130, 246, .12);
+    }
+
+    /* ── CODE BLOCK ── */
+    .code {
+      background: #0d1117;
+      border: 1px solid #21262d;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: .8rem;
+      color: #e6edf3;
+      line-height: 1.65;
+      overflow-x: auto;
+      margin-top: 14px;
+    }
+
+    .kw {
+      color: #ff7b72
+    }
+
+    .str {
+      color: #a5d6ff
+    }
+
+    .key {
+      color: #79c0ff
+    }
+
+    .val {
+      color: #56d364
+    }
+
+    .cmt {
+      color: #8b949e
+    }
+
+    /* ── CONNECTOR FLOW ── */
+    .conn-flow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 18px 0;
+    }
+
+    .conn-node {
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 10px;
+      padding: 9px 15px;
+      font-size: .85rem;
+      font-weight: 700;
+    }
+
+    .conn-arrow {
+      color: #60a5fa;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    /* ── PUMPKIN IMAGE ── */
+    .pumpkin { display: inline-block; vertical-align: middle; line-height: 1; }
+    .pumpkin-lg { width: 72px; height: 72px; margin-bottom: 14px; display: block; }
+    .pumpkin-sm { width: 20px; height: 20px; margin-right: 5px; vertical-align: middle; }
+    .pumpkin-xs { width: 15px; height: 15px; margin: 0 4px; vertical-align: middle; }
+
+    /* ── FOOTER ── */
+    .foot-note {
+      margin-top: 24px;
+      font-size: .78rem;
+      opacity: .45;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      padding-top: 14px;
+    }
+
+    /* ── SLIDE NUMBER ── */
+    .slide-n {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .7rem;
+      opacity: .32;
+      letter-spacing: .06em;
+      pointer-events: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:640px) {
+
+      .two-col,
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .slide {
+        padding: 38px 16px;
+      }
+
+      #nav-dots {
+        right: 6px;
+      }
+
+      .tbl {
+        font-size: .76rem;
+      }
+
+      .tbl th,
+      .tbl td {
+        padding: 6px 7px;
+      }
+    }
+
+    @media (max-width:420px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="progress-bar"></div>
+  <div id="nav-dots"></div>
+  <button id="nav-prev" class="hidden" aria-label="Previous slide">▲</button>
+  <button id="nav-next" aria-label="Next slide">▼</button>
+
+  <div id="deck">
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 1 — TITLE
+═══════════════════════════════════════ -->
+    <section class="slide s-grad" id="s0">
+      <div class="slide-inner">
+        <span class="eyebrow">Hacktoberfest Community · 2026</span>
+        <!-- large pumpkin above title -->
+        <img src="slack-emoji-pumpkin.png" alt="Hacktoberfest pumpkin" class="pumpkin pumpkin-lg">
+        <h1>OpenDataBridge</h1>
+        <p style="font-size:1.25rem;opacity:.8;max-width:520px;margin-bottom:22px;">
+          One governed interface to retrieve engineering context<br>from the tools your teams already use.
+        </p>
+        <div>
+          <span class="badge b-blue">Hacktoberfest</span>
+          <span class="badge b-indigo">Open Source</span>
+          <span class="badge b-teal">Enterprise-Ready</span>
+          <span class="badge b-orange">100% Free To Use</span>
+        </div>
+        <div class="big-quote" style="margin-top:28px;max-width:600px;">
+          "Stop writing the same integration glue for every team, every sprint, every tool."
+        </div>
+      </div>
+      <span class="slide-n">1 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 2 — THE PROBLEM
+═══════════════════════════════════════ -->
+    <section class="slide s-dark" id="s1">
+      <div class="slide-inner">
+        <span class="eyebrow">The Problem We're Solving</span>
+        <h2>Every team writes the same glue code</h2>
+        <p style="max-width:600px;opacity:.85;margin-bottom:4px;">
+          GitHub, Jira, ServiceNow, Slack, Azure DevOps — every team builds its own auth handlers, pagination loops,
+          retry logic, and response parsers. Over and over.
+        </p>
+        <div class="stats">
+          <div class="stat-box">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">Enterprise tools per team</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">~80%</div>
+            <div class="stat-label">Integration code is repeated</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">4×</div>
+            <div class="stat-label">Context switches per task</div>
+          </div>
+        </div>
+        <div class="cards" style="margin-top:16px;">
+          <div class="card">
+            <div class="card-icon">😤</div>
+            <h3>Repeated plumbing</h3>
+            <p>Auth, retries, rate limits, pagination — written fresh in every repo</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔀</div>
+            <h3>Context switching</h3>
+            <p>Answering one question means logging into 4 different tools</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔓</div>
+            <h3>No permission consistency</h3>
+            <p>Each custom script handles (or ignores) access control differently</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📦</div>
+            <h3>Zero reuse</h3>
+            <p>Work done in one team is invisible to the next team building the same thing</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">2 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 3 — WHAT IS ODB
+═══════════════════════════════════════ -->
+    <section class="slide s-blue" id="s2">
+      <div class="slide-inner">
+        <span class="eyebrow">Introducing OpenDataBridge</span>
+        <h2>One connector contract. Every enterprise tool.</h2>
+        <p style="max-width:640px;opacity:.88;">A shared, open-source SDK that any team can use and contribute to —
+          handling the integration plumbing once, so your team focuses on building features.</p>
+
+        <div class="conn-flow">
+          <div class="conn-node">🔌 Connect</div>
+          <span class="conn-arrow">→</span>
+          <div class="conn-node">🔍 Discover</div>
+          <span class="conn-arrow">→</span>
+          <div class="conn-node">🎯 Select</div>
+          <span class="conn-arrow">→</span>
+          <div class="conn-node">📦 Retrieve</div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🧩</div>
+            <h3>Pluggable connectors</h3>
+            <p>GitHub · Jira · ServiceNow · Slack · Azure DevOps — one consistent contract</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔐</div>
+            <h3>Permissions preserved</h3>
+            <p>Source identity, scopes, and tenant context are carried through every call</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏠</div>
+            <h3>Self-hosted</h3>
+            <p>Your org controls credentials, data, logs, and deployment — nothing leaves your perimeter</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>CLI · API · SDK</h3>
+            <p><code
+                style="background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;font-size:.8rem;">odb get github issues</code>
+              — instant onboarding</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">3 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 4 — HOW IT WORKS
+═══════════════════════════════════════ -->
+    <section class="slide s-indigo" id="s3">
+      <div class="slide-inner">
+        <span class="eyebrow">How It Works</span>
+        <h2>Control plane + data plane, cleanly separated</h2>
+        <div class="two-col">
+          <div class="col-box">
+            <h3 style="color:#60a5fa;margin-bottom:10px;">⚙️ Control Plane</h3>
+            <ul class="slist">
+              <li>Connector registry &amp; versions</li>
+              <li>Capability discovery</li>
+              <li>Credential &amp; secret references</li>
+              <li>Policy configuration</li>
+              <li>Schema &amp; contract metadata</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h3 style="color:#34d399;margin-bottom:10px;">📡 Data Plane</h3>
+            <ul class="slist">
+              <li>Query validation &amp; auth</li>
+              <li>Source API calls</li>
+              <li>Pagination, retries, circuit breakers</li>
+              <li>Normalization + source payload</li>
+              <li>Provenance &amp; audit trail</li>
+            </ul>
+          </div>
+        </div>
+        <div class="code">
+          <span class="key">"source"</span>: { <span class="key">"system"</span>: <span class="str">"github"</span>,
+          <span class="key">"connectorVersion"</span>: <span class="str">"1.2.0"</span>, <span
+            class="key">"retrievedAt"</span>: <span class="str">"2025-09-16T07:00Z"</span> },
+          <span class="key">"items"</span>: [{
+          <span class="key">"canonical"</span>: { <span class="key">"id"</span>: <span
+            class="str">"github:issue:123"</span>, <span class="key">"title"</span>: <span class="str">"Payment
+            timeout"</span>, <span class="key">"status"</span>: <span class="str">"open"</span> },
+          <span class="key">"sourcePayload"</span>: { <span class="key">"number"</span>: <span class="val">451</span>,
+          <span class="key">"labels"</span>: [<span class="str">"bug"</span>], <span class="key">"repository"</span>:
+          <span class="str">"company/payment"</span> }
+          }] <span class="cmt">// canonical view + original payload — nothing lost</span>
+        </div>
+      </div>
+      <span class="slide-n">4 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 5 — AI LAYER
+═══════════════════════════════════════ -->
+    <section class="slide s-blue" id="s4">
+      <div class="slide-inner">
+        <span class="eyebrow">AI Integration (Mellea)</span>
+        <h2>Ask in plain English. Get governed, traceable results.</h2>
+        <p style="opacity:.88;max-width:620px;">AI is an assistive query layer — not the execution engine. Every result
+          is deterministic, validated, and permission-checked before it leaves the data plane.</p>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">💬</div>
+            <div class="flow-text">
+              <h4>You ask</h4>
+              <p>"Show open Jira issues linked to GitHub PRs created this week for the payments team"</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">🧠</div>
+            <div class="flow-text">
+              <h4>AI generates a typed query plan</h4>
+              <p>Intent extraction → capability lookup → structured, schema-validated plan</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">✅</div>
+            <div class="flow-text">
+              <h4>You see the plan before it runs</h4>
+              <p>Sources, filters and permissions shown upfront — you confirm</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">⚡</div>
+            <div class="flow-text">
+              <h4>Deterministic connectors execute</h4>
+              <p>No model hallucinations in the data path — only typed, validated API calls</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">📋</div>
+            <div class="flow-text">
+              <h4>Results with full provenance</h4>
+              <p>Every record shows where it came from, when it was retrieved, and what was filtered</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">5 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 6 — FIRST USE CASE
+═══════════════════════════════════════ -->
+    <section class="slide s-white" id="s5">
+      <div class="slide-inner">
+        <span class="eyebrow">Where We Start</span>
+        <h2>Engineering Context CLI — the first wedge</h2>
+        <p style="color:#334155;max-width:620px;">A read-only, developer-focused CLI and API for the tools engineering
+          teams already live in every day.</p>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🐙</div>
+            <h3>GitHub</h3>
+            <p>Issues, PRs, deployments, code owners, repository metadata</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📋</div>
+            <h3>Jira</h3>
+            <p>Issues, sprints, epics, linked work, project status</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3>CI/CD</h3>
+            <p>Pipeline runs, deployment history, build status, failure rates</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚨</div>
+            <h3>Incidents</h3>
+            <p>Open incidents, severity, linked services, resolution timeline</p>
+          </div>
+        </div>
+        <div class="hi-box green" style="margin-top:14px;">
+          <p style="color:#065f46;"><strong>Example questions you can answer instantly:</strong><br>
+            1. Which services have open incidents and unmerged PRs right now? &nbsp;·&nbsp; <br>
+            2. Who owns the service that's failing?<br>
+            3. What changed between the last deploy and this incident?</p>
+        </div>
+      </div>
+      <span class="slide-n">6 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 7 — INNERSOURCE OPPORTUNITY
+═══════════════════════════════════════ -->
+    <section class="slide s-grad" id="s6">
+      <div class="slide-inner">
+        <span class="eyebrow"><img src="slack-emoji-pumpkin.png" alt="" class="pumpkin pumpkin-sm">Hacktoberfest · InnerSource Opportunity</span>
+        <h2>Every team can contribute. Every team benefits.</h2>
+        <div class="big-quote">
+          "A shared connector contract means work done once in Team A saves days for Teams B, C, and D."
+        </div>
+        <div class="cards" style="margin-top:18px;">
+          <div class="card">
+            <div class="card-icon">🧱</div>
+            <h3>Contribute a connector</h3>
+            <p>Templates, local mocks, and contract tests make it fast to add a new integration</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔁</div>
+            <h3>Reuse instantly</h3>
+            <p>Once a connector is in the registry, every team can use it with zero extra work</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>Observable by design</h3>
+            <p>Execution plans, metrics, and audit logs are visible to every contributor</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏛️</div>
+            <h3>Governed evolution</h3>
+            <p>RFC process for changes to the contract — no surprise breakage across teams</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">7 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 9 — ROADMAP
+═══════════════════════════════════════ -->
+    <section class="slide s-grad" id="s8">
+      <div class="slide-inner">
+        <span class="eyebrow">Roadmap</span>
+        <h2>Three phases — shipping fast, hardening right</h2>
+        <div class="phases">
+          <div class="phase-item">
+            <div class="phase-num p1">1</div>
+            <div class="phase-body">
+              <h4>Read-only foundation</h4>
+              <p>Connector SDK · Manifest &amp; capability contract · GitHub + Jira connectors · CLI &amp; REST API ·
+                Pagination, retries, rate limits · Audit logs</p>
+            </div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num p2">2</div>
+            <div class="phase-body">
+              <h4>Engineering context layer</h4>
+              <p>Common entities: repo, issue, PR, deployment, incident, service · Relationship mapping · Cross-source
+                queries · JSON/CSV export · Docker Compose</p>
+            </div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num p3">3</div>
+            <div class="phase-body">
+              <h4>AI query assistant</h4>
+              <p>Natural language → typed query · Preview &amp; confirmation · Provenance in results · Optional
+                local-model support</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">8 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 10 — HOW TO CONTRIBUTE
+═══════════════════════════════════════ -->
+    <section class="slide s-white" id="s9">
+      <div class="slide-inner">
+        <span class="eyebrow">Get Involved</span>
+        <h2>How to contribute to OpenDataBridge</h2>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">1</div>
+            <div class="flow-text">
+              <h4>Adopt the CLI</h4>
+              <p>Install and use it for your daily engineering questions — the fastest way to discover what's missing
+              </p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">2</div>
+            <div class="flow-text">
+              <h4>Build a connector for a tool your team uses</h4>
+              <p>Use the scaffolding templates — auth adapter, pagination handler, contract tests, and docs are all
+                generated</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">3</div>
+            <div class="flow-text">
+              <h4>Share a real query your team needs</h4>
+              <p>Open an issue with a cross-system question your team answers manually today — that's our backlog</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">4</div>
+            <div class="flow-text">
+              <h4>Join the RFC process</h4>
+              <p>Review and comment on connector contract changes — your org's requirements shape the standard</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">5</div>
+            <div class="flow-text">
+              <h4>Sponsor a phase</h4>
+              <p>Assign a developer for a sprint to own a connector or feature — your team gets it first</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">9 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 11 — SUCCESS METRICS
+═══════════════════════════════════════ -->
+    <section class="slide s-indigo" id="s10">
+      <div class="slide-inner">
+        <span class="eyebrow">How We Measure Success</span>
+        <h2>Metrics that prove real value</h2>
+        <div class="two-col">
+          <div class="col-box">
+            <h3 style="color:#a5b4fc;margin-bottom:10px;">⏱️ Developer productivity</h3>
+            <ul class="slist">
+              <li>Time to add a new connector</li>
+              <li>Lines of integration code avoided</li>
+              <li>Queries answered without portal switching</li>
+            </ul>
+          </div>
+          <div class="col-box">
+            <h3 style="color:#6ee7b7;margin-bottom:10px;">🔒 Reliability &amp; trust</h3>
+            <ul class="slist">
+              <li>Connector contract-test pass rate</li>
+              <li>Permission test coverage</li>
+              <li>Median query latency</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cards" style="margin-top:14px;grid-template-columns:repeat(3,1fr);">
+          <div class="stat-box" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);">
+            <div class="stat-num">↓ 80%</div>
+            <div class="stat-label">Integration code per team</div>
+          </div>
+          <div class="stat-box" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);">
+            <div class="stat-num">&lt; 1 day</div>
+            <div class="stat-label">Time to add a connector</div>
+          </div>
+          <div class="stat-box" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);">
+            <div class="stat-num">N+</div>
+            <div class="stat-label">Teams reusing shared connectors</div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">10 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 12 — CALL TO ACTION
+═══════════════════════════════════════ -->
+    <section class="slide s-green" id="s11">
+      <div class="slide-inner">
+        <span class="eyebrow">Join the Community</span>
+        <h2>Let's build this together</h2>
+
+        <div class="big-quote">
+          "OpenDataBridge is the integration layer your entire org shares — built in the open, governed by the teams
+          that rely on it."
+        </div>
+
+        <div class="cards" style="margin-top:20px;">
+          <div class="card">
+            <div class="card-icon">⭐</div>
+            <h3>Star &amp; watch the repo</h3>
+            <p>Follow progress and get notified when Phase 1 ships</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🐛</div>
+            <h3>File a use-case issue</h3>
+            <p>Tell us the cross-system query your team answers manually today</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔌</div>
+            <h3>Claim a connector</h3>
+            <p>Pick a tool your team uses — own the connector for the community</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💬</div>
+            <h3>Join the channel</h3>
+            <p>Discuss architecture, RFCs, and roadmap priorities with the core team</p>
+          </div>
+        </div>
+
+        <div class="foot-note">
+          <img src="slack-emoji-pumpkin.png" alt="" class="pumpkin pumpkin-xs">
+          OpenDataBridge — Hacktoberfest Community Project Pitch
+          <img src="slack-emoji-pumpkin.png" alt="" class="pumpkin pumpkin-xs">
+        </div>
+      </div>
+      <span class="slide-n">11 /11</span>
+    </section>
+
+  </div><!-- /#deck -->
+
+  <script>
+    (function () {
+      'use strict';
+
+      const deck = document.getElementById('deck');
+      const bar = document.getElementById('progress-bar');
+      const dotsWrap = document.getElementById('nav-dots');
+      const btnPrev = document.getElementById('nav-prev');
+      const btnNext = document.getElementById('nav-next');
+      const slides = Array.from(deck.querySelectorAll('.slide'));
+      const total = slides.length;
+
+      let current = 0;
+      let isAnimating = false;   // lock while scroll-snap settles
+
+      /* ── build nav dots ── */
+      slides.forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'dot' + (i === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', 'Slide ' + (i + 1));
+        btn.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(btn);
+      });
+
+      function dots() { return Array.from(dotsWrap.querySelectorAll('.dot')); }
+
+      /* ── sync UI chrome ── */
+      function syncUI(idx) {
+        current = idx;
+        bar.style.width = (total > 1 ? idx / (total - 1) * 100 : 100) + '%';
+        dots().forEach((d, i) => d.classList.toggle('active', i === idx));
+        btnPrev.classList.toggle('hidden', idx === 0);
+        btnNext.classList.toggle('hidden', idx === total - 1);
+      }
+
+      /* ── animate slide content in ── */
+      function revealSlide(idx) {
+        const inner = slides[idx].querySelector('.slide-inner');
+        if (inner && !inner.classList.contains('in')) {
+          // tiny delay so it plays after the snap completes
+          setTimeout(() => inner.classList.add('in'), 80);
+        }
+      }
+
+      /* ── programmatic navigation ── */
+      function goTo(idx) {
+        if (idx < 0 || idx >= total || idx === current || isAnimating) return;
+        isAnimating = true;
+
+        // scroll the deck container directly — scroll-snap will lock it into place
+        deck.scrollTo({ top: slides[idx].offsetTop, behavior: 'smooth' });
+        syncUI(idx);
+        revealSlide(idx);
+
+        // unlock after snap animation (~600 ms is enough for smooth scroll)
+        setTimeout(() => { isAnimating = false; }, 650);
+      }
+
+      /* ── arrow buttons ── */
+      btnPrev.addEventListener('click', () => goTo(current - 1));
+      btnNext.addEventListener('click', () => goTo(current + 1));
+
+      /* ── keyboard ── */
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+          e.preventDefault(); goTo(current + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault(); goTo(current - 1);
+        }
+      });
+
+      /* ── mouse-wheel: one slide per gesture ── */
+      let wheelBusy = false;
+      deck.addEventListener('wheel', e => {
+        e.preventDefault();
+        if (wheelBusy || isAnimating) return;
+        wheelBusy = true;
+        goTo(e.deltaY > 0 ? current + 1 : current - 1);
+        // hold the gate long enough for the snap to finish
+        setTimeout(() => { wheelBusy = false; }, 750);
+      }, { passive: false });
+
+      /* ── touch swipe: one slide per swipe ── */
+      let touchStartY = null;
+      deck.addEventListener('touchstart', e => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      deck.addEventListener('touchend', e => {
+        if (touchStartY === null) return;
+        const dy = touchStartY - e.changedTouches[0].clientY;
+        touchStartY = null;
+        if (Math.abs(dy) < 40) return; // ignore tiny taps
+        goTo(dy > 0 ? current + 1 : current - 1);
+      }, { passive: true });
+
+      /* ── IntersectionObserver: sync dot/progress when user uses
+            native scroll (drag scrollbar, momentum, etc.) ── */
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const idx = slides.indexOf(entry.target);
+          if (idx !== -1 && idx !== current && !isAnimating) {
+            syncUI(idx);
+            revealSlide(idx);
+          }
+        });
+      }, { root: deck, threshold: 0.6 });
+
+      slides.forEach(s => io.observe(s));
+
+      /* ── initialise first slide ── */
+      syncUI(0);
+      revealSlide(0);
+    })();
+  </script>
+</body>
+
+</html>
