@@ -771,7 +771,7 @@
         <span class="eyebrow">The Problem We're Solving</span>
         <h2>Every team writes the same glue code</h2>
         <p style="max-width:600px;opacity:.85;margin-bottom:4px;">
-          GitHub, Jira, ServiceNow, Slack, Azure DevOps — every team builds its own auth handlers, pagination loops,
+          GitHub, Jira, Slack, PagerDuty, SonarQube — every team builds its own auth handlers, pagination loops,
           retry logic, and response parsers. Over and over.
         </p>
         <div class="stats">
@@ -838,7 +838,7 @@
           <div class="card">
             <div class="card-icon">🧩</div>
             <h3>Pluggable connectors</h3>
-            <p>GitHub · Jira · ServiceNow · Slack · Azure DevOps — one consistent contract</p>
+            <p>GitHub · Jira · Slack · Extensible SDK — one unified connector contract</p>
           </div>
           <div class="card">
             <div class="card-icon">🔐</div>
@@ -893,8 +893,8 @@
         </div>
         <div class="code">
           <span class="key">"source"</span>: { <span class="key">"system"</span>: <span class="str">"github"</span>,
-          <span class="key">"connectorVersion"</span>: <span class="str">"1.2.0"</span>, <span
-            class="key">"retrievedAt"</span>: <span class="str">"2025-09-16T07:00Z"</span> },
+          <span class="key">"connectorVersion"</span>: <span class="str">"1.0.0"</span>, <span
+            class="key">"retrievedAt"</span>: <span class="str">"2026-10-01T08:00Z"</span> },
           <span class="key">"items"</span>: [{
           <span class="key">"canonical"</span>: { <span class="key">"id"</span>: <span
             class="str">"github:issue:123"</span>, <span class="key">"title"</span>: <span class="str">"Payment
@@ -1000,9 +1000,76 @@
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 7 — INNERSOURCE OPPORTUNITY
+     SLIDE 7 — SECURITY & RELIABILITY
 ═══════════════════════════════════════ -->
-    <section class="slide s-grad" id="s6">
+    <section class="slide s-grad" id="s7">
+      <div class="slide-inner">
+        <span class="eyebrow">Security &amp; Reliability</span>
+        <h2>Production-ready foundation for enterprise security standards</h2>
+        <div class="big-quote" style="margin-bottom:18px;">
+          Enterprise deployments require more than static tokens. ODB adds full OAuth 2.0 with transparent token refresh, an in-process resilience cache against vault outages, and a unified secrets adapter across Vault, AWS, Azure, IBM Cloud, and GCP — delivering production-grade reliability across every cloud.
+        </div>
+        <div class="cards" style="grid-template-columns:repeat(3, 1fr);">
+          <div class="card">
+            <div class="card-icon">🔑</div>
+            <h3>OAuth 2.0 &amp; PKCE</h3>
+            <p>User delegation &amp; M2M auth with transparent token refresh and zero user disruption</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Resilience Cache</h3>
+            <p>In-process fallback cache shields live requests against transient vault outages</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🌐</div>
+            <h3>Unified Secrets Layer</h3>
+            <p>Single abstraction across Vault, AWS, Azure, IBM Cloud, GCP, and local env</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">7 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 8 — AUDITING & GOVERNANCE
+═══════════════════════════════════════ -->
+    <section class="slide s-indigo" id="s8">
+      <div class="slide-inner">
+        <span class="eyebrow">Auditing &amp; Governance · Shift-Left Security</span>
+        <h2>Built-in compliance, security principles &amp; contract safety from Day 1</h2>
+        <div class="big-quote" style="margin-bottom:18px;">
+          Governance and security are embedded from the start. OpenDataBridge enforces Spec-Driven Development (SDD) and a Shift-Left Security principle — integrating automated SAST scans, secret scanning, credential sanitisation, and contract validation directly into developer workflows before code ever reaches runtime.
+        </div>
+        <div class="cards" style="grid-template-columns:repeat(4, 1fr);">
+          <div class="card">
+            <div class="card-icon">📐</div>
+            <h3>Spec-Driven Dev (SDD)</h3>
+            <p>OpenAPI 3.1 &amp; capability manifests serve as canonical, immutable contracts</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Shift-Left Security</h3>
+            <p>Pre-commit SAST, secret leak prevention, and vulnerability gates in local CI</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>Immutable Audit Trail</h3>
+            <p>PostgreSQL audit log tracks caller, duration, status, and params with zero credential leakage</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔒</div>
+            <h3>Zero-Trust Data Plane</h3>
+            <p>Read-only default, scoped caller permissions, and strict sanitised error boundaries</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">8 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 9 — INNERSOURCE OPPORTUNITY
+═══════════════════════════════════════ -->
+    <section class="slide s-grad" id="s9">
       <div class="slide-inner">
         <span class="eyebrow"><img src="slack-emoji-pumpkin.png" alt="" class="pumpkin pumpkin-sm">Hacktoberfest ·
           InnerSource Opportunity</span>
@@ -1030,73 +1097,6 @@
             <div class="card-icon">🏛️</div>
             <h3>Governed evolution</h3>
             <p>RFC process for changes to the contract — no surprise breakage across teams</p>
-          </div>
-        </div>
-      </div>
-      <span class="slide-n">7 /11</span>
-    </section>
-
-    <!-- ═══════════════════════════════════════
-     SLIDE 8 — SECURITY & RELIABILITY
-═══════════════════════════════════════ -->
-    <section class="slide s-grad" id="s8">
-      <div class="slide-inner">
-        <span class="eyebrow">Security &amp; Reliability</span>
-        <h2>Production-ready foundation for enterprise security standards</h2>
-        <div class="big-quote" style="margin-bottom:18px;">
-          Enterprise deployments require more than static tokens. ODB adds full OAuth 2.0 with transparent token refresh, an in-process resilience cache against vault outages, and a unified secrets adapter across Vault, AWS, Azure, IBM Cloud, and GCP — delivering production-grade reliability across every cloud.
-        </div>
-        <div class="cards" style="grid-template-columns:repeat(3, 1fr);">
-          <div class="card">
-            <div class="card-icon">🔑</div>
-            <h3>OAuth 2.0 &amp; PKCE</h3>
-            <p>User delegation &amp; M2M auth with transparent token refresh and zero user disruption</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">🛡️</div>
-            <h3>Resilience Cache</h3>
-            <p>In-process fallback cache shields live requests against transient vault outages</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">🌐</div>
-            <h3>Unified Secrets Layer</h3>
-            <p>Single abstraction across Vault, AWS, Azure, IBM Cloud, GCP, and local env</p>
-          </div>
-        </div>
-      </div>
-      <span class="slide-n">8 /11</span>
-    </section>
-
-    <!-- ═══════════════════════════════════════
-     SLIDE 9 — AUDITING & GOVERNANCE
-═══════════════════════════════════════ -->
-    <section class="slide s-indigo" id="s9">
-      <div class="slide-inner">
-        <span class="eyebrow">Auditing &amp; Governance · Shift-Left Security</span>
-        <h2>Built-in compliance, security principles &amp; contract safety from Day 1</h2>
-        <div class="big-quote" style="margin-bottom:18px;">
-          Governance and security are embedded from the start. OpenDataBridge enforces Spec-Driven Development (SDD) and a Shift-Left Security principle — integrating automated SAST scans, secret scanning, credential sanitisation, and contract validation directly into developer workflows before code ever reaches runtime.
-        </div>
-        <div class="cards" style="grid-template-columns:repeat(4, 1fr);">
-          <div class="card">
-            <div class="card-icon">📐</div>
-            <h3>Spec-Driven Dev (SDD)</h3>
-            <p>OpenAPI 3.1 &amp; capability manifests serve as canonical, immutable contracts</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">🛡️</div>
-            <h3>Shift-Left Security</h3>
-            <p>Pre-commit SAST, secret leak prevention, and vulnerability gates in local CI</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">📝</div>
-            <h3>Immutable Audit Trail</h3>
-            <p>PostgreSQL audit log tracks caller, duration, status, and params with zero credential leakage</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">🔒</div>
-            <h3>Zero-Trust Data Plane</h3>
-            <p>Read-only default, scoped caller permissions, and strict sanitised error boundaries</p>
           </div>
         </div>
       </div>
