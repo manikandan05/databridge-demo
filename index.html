@@ -760,7 +760,7 @@
           "Stop writing the same integration glue for every team, every sprint, every tool."
         </div>
       </div>
-      <span class="slide-n">1 /10</span>
+      <span class="slide-n">1 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -811,7 +811,7 @@
           </div>
         </div>
       </div>
-      <span class="slide-n">2 /10</span>
+      <span class="slide-n">2 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -859,7 +859,7 @@
           </div>
         </div>
       </div>
-      <span class="slide-n">3 /10</span>
+      <span class="slide-n">3 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -905,7 +905,7 @@
           }] <span class="cmt">// canonical view + original payload — nothing lost</span>
         </div>
       </div>
-      <span class="slide-n">4 /10</span>
+      <span class="slide-n">4 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -955,7 +955,7 @@
           </div>
         </div>
       </div>
-      <span class="slide-n">5 /10</span>
+      <span class="slide-n">5 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -996,7 +996,7 @@
             3. What changed between the last deploy and this incident?</p>
         </div>
       </div>
-      <span class="slide-n">6 /10</span>
+      <span class="slide-n">6 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -1033,50 +1033,80 @@
           </div>
         </div>
       </div>
-      <span class="slide-n">7 /10</span>
+      <span class="slide-n">7 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 8 — ROADMAP
+     SLIDE 8 — SECURITY & RELIABILITY
 ═══════════════════════════════════════ -->
     <section class="slide s-grad" id="s8">
       <div class="slide-inner">
-        <span class="eyebrow">Roadmap</span>
-        <h2>Three phases — shipping fast, hardening right</h2>
-        <div class="phases">
-          <div class="phase-item">
-            <div class="phase-num p1">1</div>
-            <div class="phase-body">
-              <h4>Read-only foundation</h4>
-              <p>Connector SDK · Manifest &amp; capability contract · GitHub + Jira connectors · CLI &amp; REST API ·
-                Pagination, retries, rate limits · Audit logs</p>
-            </div>
+        <span class="eyebrow">Security &amp; Reliability</span>
+        <h2>Production-ready foundation for enterprise security standards</h2>
+        <div class="big-quote" style="margin-bottom:18px;">
+          Enterprise deployments require more than static tokens. ODB adds full OAuth 2.0 with transparent token refresh, an in-process resilience cache against vault outages, and a unified secrets adapter across Vault, AWS, Azure, IBM Cloud, and GCP — delivering production-grade reliability across every cloud.
+        </div>
+        <div class="cards" style="grid-template-columns:repeat(3, 1fr);">
+          <div class="card">
+            <div class="card-icon">🔑</div>
+            <h3>OAuth 2.0 &amp; PKCE</h3>
+            <p>User delegation &amp; M2M auth with transparent token refresh and zero user disruption</p>
           </div>
-          <div class="phase-item">
-            <div class="phase-num p2">2</div>
-            <div class="phase-body">
-              <h4>Engineering context layer</h4>
-              <p>Common entities: repo, issue, PR, deployment, incident, service · Relationship mapping · Cross-source
-                queries · JSON/CSV export · Docker Compose</p>
-            </div>
+          <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Resilience Cache</h3>
+            <p>In-process fallback cache shields live requests against transient vault outages</p>
           </div>
-          <div class="phase-item">
-            <div class="phase-num p3">3</div>
-            <div class="phase-body">
-              <h4>AI query assistant</h4>
-              <p>Natural language → typed query · Preview &amp; confirmation · Provenance in results · Optional
-                local-model support</p>
-            </div>
+          <div class="card">
+            <div class="card-icon">🌐</div>
+            <h3>Unified Secrets Layer</h3>
+            <p>Single abstraction across Vault, AWS, Azure, IBM Cloud, GCP, and local env</p>
           </div>
         </div>
       </div>
-      <span class="slide-n">8 /10</span>
+      <span class="slide-n">8 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 9 — SUCCESS METRICS
+     SLIDE 9 — AUDITING & GOVERNANCE
 ═══════════════════════════════════════ -->
-    <section class="slide s-indigo" id="s10">
+    <section class="slide s-indigo" id="s9">
+      <div class="slide-inner">
+        <span class="eyebrow">Auditing &amp; Governance · Shift-Left Security</span>
+        <h2>Built-in compliance, security principles &amp; contract safety from Day 1</h2>
+        <div class="big-quote" style="margin-bottom:18px;">
+          Governance and security are embedded from the start. OpenDataBridge enforces Spec-Driven Development (SDD) and a Shift-Left Security principle — integrating automated SAST scans, secret scanning, credential sanitisation, and contract validation directly into developer workflows before code ever reaches runtime.
+        </div>
+        <div class="cards" style="grid-template-columns:repeat(4, 1fr);">
+          <div class="card">
+            <div class="card-icon">📐</div>
+            <h3>Spec-Driven Dev (SDD)</h3>
+            <p>OpenAPI 3.1 &amp; capability manifests serve as canonical, immutable contracts</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Shift-Left Security</h3>
+            <p>Pre-commit SAST, secret leak prevention, and vulnerability gates in local CI</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>Immutable Audit Trail</h3>
+            <p>PostgreSQL audit log tracks caller, duration, status, and params with zero credential leakage</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔒</div>
+            <h3>Zero-Trust Data Plane</h3>
+            <p>Read-only default, scoped caller permissions, and strict sanitised error boundaries</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">9 /11</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 10 — SUCCESS METRICS
+═══════════════════════════════════════ -->
+    <section class="slide s-dark" id="s10">
       <div class="slide-inner">
         <span class="eyebrow">How We Measure Success</span>
         <h2>Metrics that prove real value</h2>
@@ -1113,11 +1143,11 @@
           </div>
         </div>
       </div>
-      <span class="slide-n">9 /10</span>
+      <span class="slide-n">10 /11</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 10 — CALL TO ACTION
+     SLIDE 11 — CALL TO ACTION
 ═══════════════════════════════════════ -->
     <section class="slide s-green" id="s11">
       <div class="slide-inner">
@@ -1158,7 +1188,7 @@
           <img src="slack-emoji-pumpkin.png" alt="" class="pumpkin pumpkin-xs">
         </div>
       </div>
-      <span class="slide-n">10 /10</span>
+      <span class="slide-n">11 /11</span>
     </section>
 
   </div><!-- /#deck -->
