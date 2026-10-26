@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OpenDataBridge — InnerSource Demo</title>
+  <title>OpenDataBridge</title>
   <style>
     :root {
       --blue: #1d4ed8;
@@ -691,6 +691,180 @@
       pointer-events: none;
     }
 
+    /* ── DENSE-CONTENT HELPERS ── */
+    .slide-inner.wide {
+      max-width: 1040px;
+    }
+
+    .slide code {
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: .82em;
+      background: rgba(0, 0, 0, .28);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .s-white code {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .code code {
+      background: none;
+      padding: 0;
+    }
+
+    .tbl td,
+    .tbl th {
+      line-height: 1.4;
+    }
+
+    .cmp th,
+    .cmp td {
+      font-size: .74rem;
+      padding: 6px 8px;
+    }
+
+    .cmp td:nth-child(2),
+    .cmp th:nth-child(2) {
+      background: rgba(59, 130, 246, .14);
+    }
+
+    @media (max-height: 820px) {
+      .slide {
+        padding: 44px 36px 36px;
+      }
+
+      .slide h2 {
+        margin-bottom: 8px;
+      }
+
+      .card {
+        padding: 11px;
+      }
+
+      .card-icon {
+        font-size: 1.25rem;
+        margin-bottom: 4px;
+      }
+
+      .flow-item {
+        padding: 7px 0;
+      }
+
+      .slist li {
+        padding: 5px 0 5px 24px;
+      }
+    }
+
+    /* ── VERSUS CARDS ── */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .vs-card {
+      --accent: #3b82f6;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-top: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .v-blue {
+      --accent: #3b82f6;
+    }
+
+    .v-purple {
+      --accent: #8b5cf6;
+    }
+
+    .v-cyan {
+      --accent: #06b6d4;
+    }
+
+    .v-green {
+      --accent: #10b981;
+    }
+
+    .vs-head {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .vs-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .vs-tag {
+      font-size: .72rem;
+      opacity: .6;
+    }
+
+    .vs-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    .vs-row p {
+      font-size: .83rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .vs-label {
+      flex-shrink: 0;
+      min-width: 38px;
+      text-align: center;
+      font-size: .66rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 6px;
+      border-radius: 999px;
+      margin-top: 1px;
+    }
+
+    .vs-them {
+      background: rgba(0, 0, 0, .18);
+    }
+
+    .vs-them p {
+      opacity: .75;
+    }
+
+    .vs-them .vs-label {
+      background: rgba(255, 255, 255, .14);
+    }
+
+    .vs-odb {
+      background: rgba(16, 185, 129, .13);
+      border: 1px solid rgba(16, 185, 129, .35);
+    }
+
+    .vs-odb .vs-label {
+      background: #10b981;
+      color: #052e16;
+    }
+
+    @media (max-width: 640px) {
+      .vs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width:640px) {
 
@@ -744,23 +918,22 @@
     <section class="slide s-grad" id="s0">
       <div class="slide-inner">
         <span class="eyebrow">Hacktoberfest Community · 2026</span>
-        <!-- large pumpkin above title -->
         <img src="slack-emoji-pumpkin.png" alt="Hacktoberfest pumpkin" class="pumpkin pumpkin-lg">
         <h1>OpenDataBridge</h1>
-        <p style="font-size:1.25rem;opacity:.8;max-width:520px;margin-bottom:22px;">
+        <p style="font-size:1.25rem;opacity:.8;max-width:560px;margin-bottom:22px;">
           One governed interface to retrieve engineering context<br>from the tools your teams already use.
         </p>
         <div>
           <span class="badge b-blue">Hacktoberfest</span>
-          <span class="badge b-indigo">Open Source</span>
-          <span class="badge b-teal">Enterprise-Ready</span>
+          <span class="badge b-indigo">Open Source · Apache 2.0</span>
+          <span class="badge b-teal">Self-Hosted</span>
           <span class="badge b-orange">100% Free To Use</span>
         </div>
         <div class="big-quote" style="margin-top:28px;max-width:600px;">
-          "Stop writing the same integration glue for every team, every sprint, every tool."
+          "I don't need an integration platform. I just need application data."
         </div>
       </div>
-      <span class="slide-n">1 /11</span>
+      <span class="slide-n">1 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -771,7 +944,7 @@
         <span class="eyebrow">The Problem We're Solving</span>
         <h2>Every team writes the same glue code</h2>
         <p style="max-width:600px;opacity:.85;margin-bottom:4px;">
-          GitHub, Jira, Slack, PagerDuty, SonarQube — every team builds its own auth handlers, pagination loops,
+          GitHub, Jira, Slack, object stores, warehouses — every team builds its own auth handlers, pagination loops,
           retry logic, and response parsers. Over and over.
         </p>
         <div class="stats">
@@ -811,7 +984,7 @@
           </div>
         </div>
       </div>
-      <span class="slide-n">2 /11</span>
+      <span class="slide-n">2 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -821,8 +994,8 @@
       <div class="slide-inner">
         <span class="eyebrow">Introducing OpenDataBridge</span>
         <h2>One connector contract. Every enterprise tool.</h2>
-        <p style="max-width:640px;opacity:.88;">A shared, open-source SDK that any team can use and contribute to —
-          handling the integration plumbing once, so your team focuses on building features.</p>
+        <p style="max-width:640px;opacity:.88;">An open-source, self-hosted data access layer. No workflow engine. No ETL
+          pipeline. No mandatory destination — just governed application data.</p>
 
         <div class="conn-flow">
           <div class="conn-node">🔌 Connect</div>
@@ -837,13 +1010,13 @@
         <div class="cards">
           <div class="card">
             <div class="card-icon">🧩</div>
-            <h3>Pluggable connectors</h3>
-            <p>GitHub · Jira · Slack · Extensible SDK — one unified connector contract</p>
+            <h3>3 manifest connectors</h3>
+            <p>GitHub · Jira · Slack </p>
           </div>
           <div class="card">
             <div class="card-icon">🔐</div>
             <h3>Permissions preserved</h3>
-            <p>Source identity, scopes, and tenant context are carried through every call</p>
+            <p>Caller identity, scopes, and role are carried through every call and audited</p>
           </div>
           <div class="card">
             <div class="card-icon">🏠</div>
@@ -852,14 +1025,12 @@
           </div>
           <div class="card">
             <div class="card-icon">💻</div>
-            <h3>CLI · API · SDK</h3>
-            <p><code
-                style="background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;font-size:.8rem;">odb get github issues</code>
-              — instant onboarding</p>
+            <h3>CLI · API · SDK · UI</h3>
+            <p><code>odb get github issues</code> — instant onboarding</p>
           </div>
         </div>
       </div>
-      <span class="slide-n">3 /11</span>
+      <span class="slide-n">3 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
@@ -867,310 +1038,629 @@
 ═══════════════════════════════════════ -->
     <section class="slide s-indigo" id="s3">
       <div class="slide-inner">
-        <span class="eyebrow">How It Works</span>
+        <span class="eyebrow">How It Works · Delivered</span>
         <h2>Control plane + data plane, cleanly separated</h2>
         <div class="two-col">
           <div class="col-box">
-            <h3 style="color:#60a5fa;margin-bottom:10px;">⚙️ Control Plane</h3>
+            <h3 style="color:#60a5fa;margin-bottom:10px;">⚙️ Control Plane · api-server (Go)</h3>
             <ul class="slist">
-              <li>Connector registry &amp; versions</li>
-              <li>Capability discovery</li>
-              <li>Credential &amp; secret references</li>
-              <li>Policy configuration</li>
-              <li>Schema &amp; contract metadata</li>
+              <li>Connector registry (REST register / update / deregister)</li>
+              <li>Capability discovery &amp; manifest descriptor</li>
+              <li>Secret references, RBAC, rate-limit gate</li>
+              <li>Audit log &amp; versioned DB migrations</li>
+              <li>Mellea translate + batch query coordination</li>
             </ul>
           </div>
           <div class="col-box">
-            <h3 style="color:#34d399;margin-bottom:10px;">📡 Data Plane</h3>
+            <h3 style="color:#34d399;margin-bottom:10px;">📡 Data Plane · connector-runtime (Go)</h3>
             <ul class="slist">
-              <li>Query validation &amp; auth</li>
-              <li>Source API calls</li>
+              <li>Generic manifest-driven HTTP engine</li>
               <li>Pagination, retries, circuit breakers</li>
+              <li>Pluggable auth strategies</li>
               <li>Normalization + source payload</li>
-              <li>Provenance &amp; audit trail</li>
+              <li>Redis cache &amp; per-connector rate limits</li>
             </ul>
           </div>
         </div>
         <div class="code">
           <span class="key">"source"</span>: { <span class="key">"system"</span>: <span class="str">"github"</span>,
-          <span class="key">"connectorVersion"</span>: <span class="str">"1.0.0"</span>, <span
-            class="key">"retrievedAt"</span>: <span class="str">"2026-10-01T08:00Z"</span> },
+          <span class="key">"connectorVersion"</span>: <span class="str">"1.5.0"</span>, <span
+            class="key">"retrievedAt"</span>: <span class="str">"2026-10-28T09:00Z"</span> },
           <span class="key">"items"</span>: [{
           <span class="key">"canonical"</span>: { <span class="key">"id"</span>: <span
-            class="str">"github:issue:123"</span>, <span class="key">"title"</span>: <span class="str">"Payment
+            class="str">"github:issue:451"</span>, <span class="key">"title"</span>: <span class="str">"Payment
             timeout"</span>, <span class="key">"status"</span>: <span class="str">"open"</span> },
           <span class="key">"sourcePayload"</span>: { <span class="key">"number"</span>: <span class="val">451</span>,
-          <span class="key">"labels"</span>: [<span class="str">"bug"</span>], <span class="key">"repository"</span>:
-          <span class="str">"company/payment"</span> }
-          }] <span class="cmt">// canonical view + original payload — nothing lost</span>
+          <span class="key">"labels"</span>: [<span class="str">"bug"</span>] }
+          }], <span class="key">"warnings"</span>: []
+          <span class="cmt">// canonical view + original payload + provenance — nothing lost</span>
         </div>
       </div>
-      <span class="slide-n">4 /11</span>
+      <span class="slide-n">4 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 5 — AI LAYER
+     SLIDE 5 — STATUS AT A GLANCE
 ═══════════════════════════════════════ -->
-    <section class="slide s-blue" id="s4">
+    <section class="slide s-dark" id="s4">
       <div class="slide-inner">
-        <span class="eyebrow">AI Integration (Mellea)</span>
-        <h2>Ask in plain English. Get governed, traceable results.</h2>
-        <p style="opacity:.88;max-width:620px;">AI is an assistive query layer — not the execution engine. Every result
-          is deterministic, validated, and permission-checked before it leaves the data plane.</p>
-        <div class="flow">
-          <div class="flow-item">
-            <div class="flow-num">💬</div>
-            <div class="flow-text">
-              <h4>You ask</h4>
-              <p>"Show open Jira issues linked to GitHub PRs created this week for the payments team"</p>
-            </div>
+        <span class="eyebrow">Where We Are Today</span>
+        <h2>Status at a glance: delivered, in progress, planned</h2>
+        <div class="stats">
+          <div class="stat-box">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Connector manifests</div>
           </div>
-          <div class="flow-item">
-            <div class="flow-num">🧠</div>
-            <div class="flow-text">
-              <h4>AI generates a typed query plan</h4>
-              <p>Intent extraction → capability lookup → structured, schema-validated plan</p>
-            </div>
+          <div class="stat-box">
+            <div class="stat-num">6</div>
+            <div class="stat-label">New auth strategies</div>
           </div>
-          <div class="flow-item">
-            <div class="flow-num">✅</div>
-            <div class="flow-text">
-              <h4>You see the plan before it runs</h4>
-              <p>Sources, filters and permissions shown upfront — you confirm</p>
-            </div>
+          <div class="stat-box">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Mellea LLM backends</div>
           </div>
-          <div class="flow-item">
-            <div class="flow-num">⚡</div>
-            <div class="flow-text">
-              <h4>Deterministic connectors execute</h4>
-              <p>No model hallucinations in the data path — only typed, validated API calls</p>
-            </div>
+          <div class="stat-box">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Client surfaces: CLI · 2 SDKs · UI</div>
           </div>
-          <div class="flow-item">
-            <div class="flow-num">📋</div>
-            <div class="flow-text">
-              <h4>Results with full provenance</h4>
-              <p>Every record shows where it came from, when it was retrieved, and what was filtered</p>
-            </div>
+        </div>
+        <div class="cards" style="grid-template-columns:repeat(3,1fr);">
+          <div class="card">
+            <span class="badge b-green">Delivered</span>
+            <h3 style="margin-top:6px;">Phase 1 — Foundation</h3>
+            <p>Manifest contract · GitHub / Jira / Slack · CLI · REST API &amp; admin · pagination · Redis rate limits
+              · audit logs · Dev UI · Python &amp; JS SDKs</p>
+          </div>
+          <div class="card">
+            <span class="badge b-amber">In progress</span>
+            <h3 style="margin-top:6px;">Phase 2 &amp; 3 — Context + AI</h3>
+            <p>Batch / cross-source queries shipped · canonical entity relationships · Mellea with safety guard,
+              Watsonx / Granite / Ollama</p>
+          </div>
+          <div class="card">
+            <span class="badge b-slate">Planned</span>
+            <h3 style="margin-top:6px;">Phases 4–6</h3>
+            <p>Scheduling &amp; webhooks · export (CSV, PostgreSQL, S3) · enterprise tenancy, budgets, approvals</p>
           </div>
         </div>
       </div>
-      <span class="slide-n">5 /11</span>
+      <span class="slide-n">5 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 6 — FIRST USE CASE
+     SLIDE 6 — DELIVERED: CONNECTORS
 ═══════════════════════════════════════ -->
     <section class="slide s-white" id="s5">
       <div class="slide-inner">
-        <span class="eyebrow">Where We Start</span>
-        <h2>Engineering Context CLI — the first wedge</h2>
-        <p style="color:#334155;max-width:620px;">A read-only, developer-focused CLI and API for the tools engineering
-          teams already live in every day.</p>
-        <div class="cards">
-          <div class="card">
-            <div class="card-icon">🐙</div>
-            <h3>GitHub</h3>
-            <p>Issues, PRs, deployments, code owners, repository metadata</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">📋</div>
-            <h3>Jira</h3>
-            <p>Issues, sprints, epics, linked work, project status</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">🚀</div>
-            <h3>CI/CD</h3>
-            <p>Pipeline runs, deployment history, build status, failure rates</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">🚨</div>
-            <h3>Incidents</h3>
-            <p>Open incidents, severity, linked services, resolution timeline</p>
-          </div>
-        </div>
-        <div class="hi-box green" style="margin-top:14px;">
-          <p style="color:#065f46;"><strong>Example questions you can answer instantly:</strong><br>
-            1. Which services have open incidents and unmerged PRs right now? &nbsp;·&nbsp; <br>
-            2. Who owns the service that's failing?<br>
-            3. What changed between the last deploy and this incident?</p>
-        </div>
+        <span class="eyebrow">Delivered · Connector Catalog</span>
+        <h2>Three connectors, all declared as manifests</h2>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Connector</th>
+              <th>Version</th>
+              <th>Scope</th>
+              <th>Auth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>GitHub</strong></td>
+              <td>1.5.0</td>
+              <td>Repos, issues, PRs, commits, branches, orgs, users</td>
+              <td>OAuth / token</td>
+            </tr>
+            <tr>
+              <td><strong>Jira</strong></td>
+              <td>1.4.0</td>
+              <td>24 resources — issues, sprints, projects, attachments, worklogs, links…</td>
+              <td>Email + API token</td>
+            </tr>
+            <tr>
+              <td><strong>Slack</strong></td>
+              <td>1.2.0</td>
+              <td>Channels, private channels, messages, files, user groups, users</td>
+              <td>Bearer (bot token)</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <span class="slide-n">6 /11</span>
+      <span class="slide-n">6 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 7 — SECURITY & RELIABILITY
+     SLIDE 7 — DELIVERED: MANIFEST CONNECTOR MODEL
 ═══════════════════════════════════════ -->
-    <section class="slide s-grad" id="s7">
+    <section class="slide s-grad" id="s6">
       <div class="slide-inner">
-        <span class="eyebrow">Security &amp; Reliability</span>
-        <h2>Production-ready foundation for enterprise security standards</h2>
-        <div class="big-quote" style="margin-bottom:18px;">
-          Enterprise deployments require more than static tokens. ODB adds full OAuth 2.0 with transparent token refresh, an in-process resilience cache against vault outages, and a unified secrets adapter across Vault, AWS, Azure, IBM Cloud, and GCP — delivering production-grade reliability across every cloud.
+        <span class="eyebrow">Delivered · Manifest-Driven Connectors</span>
+        <h2>Add a connector by writing YAML, not Go</h2>
+        <div class="code" style="margin-top:8px;">
+          <span class="key">displayName</span>: <span class="str">Snowflake</span> &nbsp;<span class="cmt"># connectors/snowflake/manifest.yaml (abridged)</span><br>
+          <span class="key">version</span>: <span class="str">"1.0.0"</span><br>
+          <span class="key">baseUrl</span>: <span class="str">https://{account}.snowflakecomputing.com</span> &nbsp;<span class="cmt"># templated + allowedHostSuffixes guard</span><br>
+          <span class="key">authentication</span>:<br>
+          &nbsp;&nbsp;<span class="key">methods</span>: [<span class="str">key_pair</span>, <span class="str">oauth</span>, <span class="str">pat</span>] &nbsp;<span class="cmt"># picked from the credentials supplied</span><br>
+          <span class="key">resources</span>: { <span class="key">statements</span>: { <span class="key">operations</span>: { <span class="key">create</span>: …, <span class="key">get</span>: … } } }<br>
+          <span class="key">normalization</span>: { <span class="key">fieldMappings</span>: … } &nbsp;<span class="cmt"># declarative → canonical envelope</span><br>
+          <span class="key">contractTests</span>: { <span class="key">fixtures</span>: … } &nbsp;<span class="cmt"># run via ./scripts/run-contract-tests.sh</span>
         </div>
-        <div class="cards" style="grid-template-columns:repeat(3, 1fr);">
+        <div class="cards" style="grid-template-columns:repeat(4,1fr);">
+          <div class="card">
+            <div class="card-icon">🛠️</div>
+            <h3>Scaffold</h3>
+            <p><code>scripts/new-connector.sh</code> generates the boilerplate</p>
+          </div>
           <div class="card">
             <div class="card-icon">🔑</div>
-            <h3>OAuth 2.0 &amp; PKCE</h3>
-            <p>User delegation &amp; M2M auth with transparent token refresh and zero user disruption</p>
+            <h3>Multi-method auth</h3>
+            <p>SigV4, JWT key-pair, OAuth2 (client-creds, JWT-bearer, refresh), IAM key exchange</p>
           </div>
           <div class="card">
-            <div class="card-icon">🛡️</div>
-            <h3>Resilience Cache</h3>
-            <p>In-process fallback cache shields live requests against transient vault outages</p>
+            <div class="card-icon">📄</div>
+            <h3>Beyond JSON</h3>
+            <p>XML responses, cursor pagination, async polling, 10 MiB file upload / download</p>
           </div>
           <div class="card">
-            <div class="card-icon">🌐</div>
-            <h3>Unified Secrets Layer</h3>
-            <p>Single abstraction across Vault, AWS, Azure, IBM Cloud, GCP, and local env</p>
+            <div class="card-icon">✅</div>
+            <h3>Validated</h3>
+            <p><code>validate-manifest</code> + JSON Schema catch errors before runtime</p>
           </div>
         </div>
       </div>
-      <span class="slide-n">7 /11</span>
+      <span class="slide-n">7 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 8 — AUDITING & GOVERNANCE
+     SLIDE 8 — DELIVERED: SURFACES
 ═══════════════════════════════════════ -->
-    <section class="slide s-indigo" id="s8">
+    <section class="slide s-blue" id="s7">
       <div class="slide-inner">
-        <span class="eyebrow">Auditing &amp; Governance · Shift-Left Security</span>
-        <h2>Built-in compliance, security principles &amp; contract safety from Day 1</h2>
-        <div class="big-quote" style="margin-bottom:18px;">
-          Governance and security are embedded from the start. OpenDataBridge enforces Spec-Driven Development (SDD) and a Shift-Left Security principle — integrating automated SAST scans, secret scanning, credential sanitisation, and contract validation directly into developer workflows before code ever reaches runtime.
-        </div>
-        <div class="cards" style="grid-template-columns:repeat(4, 1fr);">
+        <span class="eyebrow">Delivered · Developer Surfaces</span>
+        <h2>Same contract from the terminal, code, and browser</h2>
+        <div class="cards" style="grid-template-columns:repeat(2,1fr);">
           <div class="card">
-            <div class="card-icon">📐</div>
-            <h3>Spec-Driven Dev (SDD)</h3>
-            <p>OpenAPI 3.1 &amp; capability manifests serve as canonical, immutable contracts</p>
+            <div class="card-icon">⌨️</div>
+            <h3>CLI — <code>odb</code> 0.2.0</h3>
+            <p><code>connect</code> · <code>get</code> · <code>batch</code> · <code>describe</code> ·
+              <code>capabilities</code>. Credentials and prompts are built from the connector descriptor.</p>
           </div>
           <div class="card">
-            <div class="card-icon">🛡️</div>
-            <h3>Shift-Left Security</h3>
-            <p>Pre-commit SAST, secret leak prevention, and vulnerability gates in local CI</p>
+            <div class="card-icon">🐍</div>
+            <h3>Python SDK 0.2.0</h3>
+            <p>Sync and async clients, Pydantic models, dynamic <code>client.&lt;name&gt;.&lt;resource&gt;.&lt;op&gt;()</code>
+              for any manifest operation.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📜</div>
+            <h3>JavaScript / TypeScript SDK 0.2.0</h3>
+            <p>Typed client with a dynamic connector proxy; <code>client.describe(name)</code>; API key optional in
+              non-prod.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🖥️</div>
+            <h3>Dev Explorer UI (Next.js)</h3>
+            <p>Forms and actions rendered from manifests (Carbon). <strong>Sync manifests</strong> button, write-action
+              confirmation, Mellea tab, multi-source tab.</p>
+          </div>
+        </div>
+        <div class="hi-box">
+          <p>Everything above is fed by one endpoint: <code>GET /v1/connectors/{name}/manifest</code> — a display-safe
+            descriptor. Change the manifest, click Sync, and the UI updates with no code change.</p>
+        </div>
+      </div>
+      <span class="slide-n">8 /15</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 9 — DELIVERED: SECURITY & GOVERNANCE
+═══════════════════════════════════════ -->
+    <section class="slide s-grad" id="s10">
+      <div class="slide-inner">
+        <span class="eyebrow">Delivered · Security &amp; Governance</span>
+        <h2>Zero-credential-leak runtime, governed from Day 1</h2>
+        <div class="cards" style="grid-template-columns:repeat(4,1fr);">
+          <div class="card">
+            <div class="card-icon">🔑</div>
+            <h3>Secrets providers</h3>
+            <p>Environment and HashiCorp Vault today, with an in-memory resilience cache (<code>ODB_SECRETS_CACHE_TTL</code>)
+              for vault blips</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">👤</div>
+            <h3>RBAC bound to key</h3>
+            <p>Role is bound to the API key server-side (<code>ODB_API_KEY_ROLES</code>). Client role headers are ignored by
+              default</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🙈</div>
+            <h3>Field-level masking</h3>
+            <p>Manifest <code>maskFields</code> and sensitivity tiers redact data as <code>[REDACTED]</code></p>
           </div>
           <div class="card">
             <div class="card-icon">📝</div>
-            <h3>Immutable Audit Trail</h3>
-            <p>PostgreSQL audit log tracks caller, duration, status, and params with zero credential leakage</p>
+            <h3>Audit trail</h3>
+            <p>PostgreSQL audit log: caller, duration, status, params — never credentials, never fails the call</p>
           </div>
           <div class="card">
-            <div class="card-icon">🔒</div>
-            <h3>Zero-Trust Data Plane</h3>
-            <p>Read-only default, scoped caller permissions, and strict sanitised error boundaries</p>
+            <div class="card-icon">🚦</div>
+            <h3>Rate limits</h3>
+            <p>Per-capability limits enforced; <code>rate_limited</code> audit path live; Redis-backed counters</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🧱</div>
+            <h3>Safe HTTP executor</h3>
+            <p>Same-origin pagination, host allow-lists, no retry on POST / PATCH, 403 → <code>permission_denied</code></p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🗄️</div>
+            <h3>Versioned migrations</h3>
+            <p><code>golang-migrate</code> on startup, with guarded rollback</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📐</div>
+            <h3>Spec-driven</h3>
+            <p>OpenAPI 3.1 + manifest schema are the contract; contract tests in CI</p>
           </div>
         </div>
       </div>
-      <span class="slide-n">8 /11</span>
+      <span class="slide-n">9 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 9 — CI/CD AUTOMATION GOALS
+     SLIDE 10 — COMPETITIVE MATRIX
 ═══════════════════════════════════════ -->
-    <section class="slide s-indigo" id="s9">
+    <section class="slide s-dark" id="s11">
+      <div class="slide-inner wide">
+        <span class="eyebrow">Competitive Positioning</span>
+        <h2>Not an embedded-integration SaaS. Not an ETL platform.</h2>
+        <table class="tbl cmp">
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>ODB</th>
+              <th>Nango</th>
+              <th>Merge.dev</th>
+              <th>Apideck</th>
+              <th>IBM App Connect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primary use case</td>
+              <td>Governed data access for internal dev teams</td>
+              <td>Embed integrations in SaaS products</td>
+              <td>Customer-facing unified API</td>
+              <td>Accounting / ERP unified API</td>
+              <td>Enterprise IT workflow integration</td>
+            </tr>
+            <tr>
+              <td>Custom connector</td>
+              <td>✅ YAML manifest</td>
+              <td>⚠️ Nango template</td>
+              <td>❌ Fixed catalog</td>
+              <td>❌ Fixed catalog</td>
+              <td>⚠️ IDE + flow build</td>
+            </tr>
+            <tr>
+              <td>Self-hosted / on-prem</td>
+              <td>✅ First-class</td>
+              <td>⚠️ Not primary</td>
+              <td>❌ Cloud-only</td>
+              <td>❌ Cloud-only</td>
+              <td>✅ Heavy setup</td>
+            </tr>
+            <tr>
+              <td>Credentials stay in org</td>
+              <td>✅ Always</td>
+              <td>⚠️ Self-host only</td>
+              <td>❌ Pass through</td>
+              <td>❌ Pass through</td>
+              <td>✅ On-prem</td>
+            </tr>
+            <tr>
+              <td>Canonical envelope + provenance</td>
+              <td>✅ Every response</td>
+              <td>❌ Raw responses</td>
+              <td>⚠️ Per vertical</td>
+              <td>⚠️ Accounting only</td>
+              <td>❌ Custom mapping</td>
+            </tr>
+            <tr>
+              <td>AI natural-language query</td>
+              <td>✅ Mellea, schema-validated</td>
+              <td>❌ None</td>
+              <td>⚠️ Tool-call only</td>
+              <td>❌ None</td>
+              <td>⚠️ Dev assist only</td>
+            </tr>
+            <tr>
+              <td>Secrets management</td>
+              <td>✅ Vault · env (cloud KMS next)</td>
+              <td>❌ None</td>
+              <td>❌ None</td>
+              <td>❌ None</td>
+              <td>⚠️ IBM-specific</td>
+            </tr>
+            <tr>
+              <td>Time to first query</td>
+              <td>~10 min <code>docker compose up</code></td>
+              <td>Managed (fast)</td>
+              <td>Managed (fast)</td>
+              <td>Managed (fast)</td>
+              <td>Days</td>
+            </tr>
+            <tr>
+              <td>Open-source / pricing</td>
+              <td>✅ Apache 2.0 · free</td>
+              <td>✅ OSS · free → $50/mo</td>
+              <td>❌ Usage-based</td>
+              <td>❌ Usage-based</td>
+              <td>❌ Enterprise licence</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:.72rem;opacity:.5;margin-top:10px;">Source: competitor websites (nango.dev, merge.dev, apideck.com,
+          ibm.com/products/app-connect) as captured in <code>docs/COMPETITIVE_CONTEXT.md</code>.</p>
+      </div>
+      <span class="slide-n">10 /15</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 11 — CONTRAST LINES
+═══════════════════════════════════════ -->
+    <section class="slide s-indigo" id="s12">
       <div class="slide-inner">
-        <span class="eyebrow">CI/CD Automation · Strategic Objectives</span>
+        <span class="eyebrow">Competitive Positioning · In One Line Each</span>
+        <h2>Why ODB, versus each alternative</h2>
+        <div class="vs-grid">
+          <div class="vs-card v-blue">
+            <div class="vs-head">
+              <span class="vs-name">Nango</span>
+              <span class="vs-tag">Embedded integrations for SaaS products</span>
+            </div>
+            <div class="vs-row vs-them">
+              <span class="vs-label">They</span>
+              <p>Embeds integrations in SaaS products for end-customers.</p>
+            </div>
+            <div class="vs-row vs-odb">
+              <span class="vs-label">ODB</span>
+              <p>The <strong>governed data access layer for your internal developer teams</strong> — canonical normalization, policy enforcement, and secrets that never leave your network.</p>
+            </div>
+          </div>
+          <div class="vs-card v-purple">
+            <div class="vs-head">
+              <span class="vs-name">Merge.dev</span>
+              <span class="vs-tag">Vertical unified API · cloud-only</span>
+            </div>
+            <div class="vs-row vs-them">
+              <span class="vs-label">They</span>
+              <p>Covers HRIS and CRM for B2B SaaS.</p>
+            </div>
+            <div class="vs-row vs-odb">
+              <span class="vs-label">ODB</span>
+              <p>Covers <strong>GitHub, Jira, Slack, data platforms, and any connector you declare</strong> — self-hosted, open-source, every response carrying full provenance.</p>
+            </div>
+          </div>
+          <div class="vs-card v-cyan">
+            <div class="vs-head">
+              <span class="vs-name">Apideck</span>
+              <span class="vs-tag">Accounting / ERP unified API</span>
+            </div>
+            <div class="vs-row vs-them">
+              <span class="vs-label">They</span>
+              <p>Adds &lt;16&nbsp;ms to accounting API calls.</p>
+            </div>
+            <div class="vs-row vs-odb">
+              <span class="vs-label">ODB</span>
+              <p>Adds <strong>canonical normalization, audit logs, RBAC, and AI queries across all your developer tools</strong> — not just accounting.</p>
+            </div>
+          </div>
+          <div class="vs-card v-green">
+            <div class="vs-head">
+              <span class="vs-name">IBM App Connect</span>
+              <span class="vs-tag">Enterprise workflow integration</span>
+            </div>
+            <div class="vs-row vs-them">
+              <span class="vs-label">They</span>
+              <p>2,800 connector actions, but needs an IDE, a flow, a pipeline, and an enterprise licence.</p>
+            </div>
+            <div class="vs-row vs-odb">
+              <span class="vs-label">ODB</span>
+              <p><strong>One manifest and <code>docker compose up</code></strong> — you're querying in 10&nbsp;minutes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-n">11 /15</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 12 — DEMO RUN OF SHOW
+═══════════════════════════════════════ -->
+    <section class="slide s-white" id="s14">
+      <div class="slide-inner">
+        <span class="eyebrow">Live Demo · Run of Show (~15 min)</span>
+        <h2>From <code>docker compose up</code> to cross-source answer</h2>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">1</div>
+            <div class="flow-text">
+              <h4>Start the stack <span style="opacity:.6;font-weight:400;">· 1 min</span></h4>
+              <p><code>./run.sh dev</code> → api-server :8080, runtime :9090, Postgres, Redis, UI :3003</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">2</div>
+            <div class="flow-text">
+              <h4>Discover &amp; connect <span style="opacity:.6;font-weight:400;">· 2 min</span></h4>
+              <p><code>odb describe github --output table</code> · <code>odb connect github</code></p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">3</div>
+            <div class="flow-text">
+              <h4>Retrieve with provenance <span style="opacity:.6;font-weight:400;">· 3 min</span></h4>
+              <p><code>odb get github issues --param repository=company/payment</code> — show canonical + sourcePayload
+              </p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">4</div>
+            <div class="flow-text">
+              <h4>Manifest → UI, live <span style="opacity:.6;font-weight:400;">· 3 min</span></h4>
+              <p>Add a filter to <code>connectors/github/manifest.yaml</code>, click <strong>Sync manifests</strong></p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">5</div>
+            <div class="flow-text">
+              <h4>Cross-source batch <span style="opacity:.6;font-weight:400;">· 3 min</span></h4>
+              <p><code>odb batch --file queries.json</code> (GitHub + Jira) — or the UI Multi-Source tab</p>
+            </div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">6</div>
+            <div class="flow-text">
+              <h4>Ask in English, then prove governance <span style="opacity:.6;font-weight:400;">· 3 min</span></h4>
+              <p>Mellea tab → plan → result; then audit log and a log <code>grep</code> showing zero credentials</p>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:.78rem;color:#64748b;margin-top:8px;">Full script: <code>docs/DEMO_RUNBOOK_MANIFEST_UI.md</code>.
+          Tokens are typed at demo time and never committed.</p>
+      </div>
+      <span class="slide-n">12 /15</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 13 — FUTURE PHASES / ROADMAP
+═══════════════════════════════════════ -->
+    <section class="slide s-indigo" id="s15">
+      <div class="slide-inner">
+        <span class="eyebrow">Roadmap · Future Phases</span>
         <h2>What we're building toward</h2>
-
-        <div class="flow" style="margin-top:14px;">
-
-          <div class="flow-item">
-            <div class="flow-num" style="background:#3b82f6;">01</div>
-            <div class="flow-text">
-              <h4>Automate the End-to-End Software Delivery Lifecycle</h4>
-              <p>Establish a consistent automated flow from code commit and PR validation through build, testing, artifact creation, deployment, and release.</p>
+        <div class="phases">
+          <div class="phase-item">
+            <div class="phase-num p1">1</div>
+            <div class="phase-body">
+              <h4>Foundation <span class="badge b-green">Completed</span></h4>
+              <p>SDKs · manifest contract · GitHub / Jira / Slack · CLI · REST &amp; admin · rate limits · audit · Dev UI</p>
             </div>
           </div>
-
-          <div class="flow-item">
-            <div class="flow-num" style="background:#8b5cf6;">02</div>
-            <div class="flow-text">
-              <h4>Shift Quality &amp; Security Checks Earlier</h4>
-              <p>Integrate automated testing, code-quality checks, vulnerability scanning, dependency scanning, and compliance checks directly into PR and CI pipelines.</p>
+          <div class="phase-item">
+            <div class="phase-num p2">2</div>
+            <div class="phase-body">
+              <h4>Context layer <span class="badge b-amber">In progress</span></h4>
+              <p>Shipped: envelope, provenance, batch queries, Docker stack. Next: canonical entity relationships
+                (issue ↔ PR ↔ commit ↔ message), UI multi-source explorer.</p>
             </div>
           </div>
-
-          <div class="flow-item">
-            <div class="flow-num" style="background:#06b6d4;">03</div>
-            <div class="flow-text">
-              <h4>Improve Release Speed &amp; Reliability</h4>
-              <p>Reduce manual intervention and enable faster, repeatable, and predictable deployments across environments.</p>
+          <div class="phase-item">
+            <div class="phase-num p3">3</div>
+            <div class="phase-body">
+              <h4>Mellea AI <span class="badge b-amber">In progress</span></h4>
+              <p>Shipped: translate endpoint, three backends, capability safety guard. Next: capability-aware dynamic
+                prompts, plan preview and confirmation in the UI.</p>
             </div>
           </div>
-
-          <div class="flow-item">
-            <div class="flow-num" style="background:#10b981;">04</div>
-            <div class="flow-text">
-              <h4>Standardize Deployment &amp; Release Processes</h4>
-              <p>Establish reusable CI/CD standards, consistent promotion across environments, versioning, artifact management, approval gates, and rollback mechanisms.</p>
+          <div class="phase-item">
+            <div class="phase-num p4">4</div>
+            <div class="phase-body">
+              <h4>Scheduling <span class="badge b-slate">Planned</span></h4>
+              <p>Recurring retrieval · incremental sync · webhook support</p>
             </div>
           </div>
-
-          <div class="flow-item">
-            <div class="flow-num" style="background:#f59e0b;">05</div>
-            <div class="flow-text">
-              <h4>Improve Visibility, Traceability &amp; Developer Experience</h4>
-              <p>Provide clear pipeline status and actionable feedback, with end-to-end traceability from code change → build → artifact → deployment → release, making failures easier to identify and troubleshoot.</p>
+          <div class="phase-item">
+            <div class="phase-num p1" style="background:#f59e0b;">5</div>
+            <div class="phase-body">
+              <h4>Export <span class="badge b-slate">Planned</span></h4>
+              <p>JSON · CSV · PostgreSQL · S3 · webhooks</p>
             </div>
           </div>
-
-        </div>
-      </div>
-      <span class="slide-n">9 /11</span>
-    </section>
-
-    <!-- ═══════════════════════════════════════
-     SLIDE 10 — SUCCESS METRICS
-═══════════════════════════════════════ -->
-    <section class="slide s-dark" id="s10">
-      <div class="slide-inner">
-        <span class="eyebrow">How We Measure Success</span>
-        <h2>Metrics that prove real value</h2>
-        <div class="two-col">
-          <div class="col-box">
-            <h3 style="color:#a5b4fc;margin-bottom:10px;">⏱️ Developer productivity</h3>
-            <ul class="slist">
-              <li>Time to add a new connector</li>
-              <li>Lines of integration code avoided</li>
-              <li>Queries answered without portal switching</li>
-            </ul>
-          </div>
-          <div class="col-box">
-            <h3 style="color:#6ee7b7;margin-bottom:10px;">🔒 Reliability &amp; trust</h3>
-            <ul class="slist">
-              <li>Connector contract-test pass rate</li>
-              <li>Permission test coverage</li>
-              <li>Median query latency</li>
-            </ul>
-          </div>
-        </div>
-        <div class="cards" style="margin-top:14px;grid-template-columns:repeat(3,1fr);">
-          <div class="stat-box" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);">
-            <div class="stat-num">↓ 80%</div>
-            <div class="stat-label">Integration code per team</div>
-          </div>
-          <div class="stat-box" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);">
-            <div class="stat-num">&lt; 1 day</div>
-            <div class="stat-label">Time to add a connector</div>
-          </div>
-          <div class="stat-box" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);">
-            <div class="stat-num">N+</div>
-            <div class="stat-label">Teams reusing shared connectors</div>
+          <div class="phase-item">
+            <div class="phase-num p2" style="background:#ec4899;">6</div>
+            <div class="phase-body">
+              <h4>Enterprise <span class="badge b-slate">Planned</span></h4>
+              <p>Tenant isolation · query budgets · approval workflows · connector certification</p>
+            </div>
           </div>
         </div>
       </div>
-      <span class="slide-n">10 /11</span>
+      <span class="slide-n">13 /15</span>
     </section>
 
     <!-- ═══════════════════════════════════════
-     SLIDE 11 — CALL TO ACTION
+     SLIDE 14 — BENCHMARKS
 ═══════════════════════════════════════ -->
-    <section class="slide s-green" id="s11">
+    <section class="slide s-dark" id="s16">
+      <div class="slide-inner wide">
+        <span class="eyebrow">Proving Value · Benchmark Targets</span>
+        <h2>Targets we will measure and publish</h2>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Benchmark</th>
+              <th>Competitor bar</th>
+              <th>ODB target</th>
+              <th>Measured with</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Median query latency (single connector)</td>
+              <td>Apideck &lt;16 ms proxy overhead</td>
+              <td><strong>&lt; 150 ms p50</strong> end-to-end</td>
+              <td><code>k6</code></td>
+            </tr>
+            <tr>
+              <td>Time-to-first-result p95</td>
+              <td>Nango &lt;100 ms scheduling</td>
+              <td><strong>&lt; 300 ms p95</strong></td>
+              <td><code>k6</code></td>
+            </tr>
+            <tr>
+              <td>Cross-source query (3 sources)</td>
+              <td>No competitor supports this</td>
+              <td><strong>&lt; 1 s</strong></td>
+              <td><code>/v1/query/batch</code></td>
+            </tr>
+            <tr>
+              <td>Time to add a connector</td>
+              <td>Merge: ~3 months DIY</td>
+              <td><strong>&lt; 30 min</strong></td>
+              <td>Timed live walkthrough</td>
+            </tr>
+            <tr>
+              <td>Credential leaks in logs</td>
+              <td>—</td>
+              <td><strong>0</strong></td>
+              <td>SAST + log <code>grep</code></td>
+            </tr>
+            <tr>
+              <td>Contract-test pass rate · cache hit rate</td>
+              <td>—</td>
+              <td><strong>100%</strong> · <strong>≥ 60%</strong></td>
+              <td><code>./run.sh test</code> · Redis <code>INFO</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="hi-box">
+          <p><strong>The story on stage:</strong> "Apideck claims &lt;16 ms proxy latency. We add &lt;150 ms end-to-end
+            with canonical normalization, audit logs, and zero credential exposure — on infrastructure you own."
+            <span style="opacity:.6;">(Targets — results to be attached once the benchmark run is captured.)</span></p>
+        </div>
+      </div>
+      <span class="slide-n">14 /15</span>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     SLIDE 15 — CALL TO ACTION
+═══════════════════════════════════════ -->
+    <section class="slide s-green" id="s17">
       <div class="slide-inner">
         <span class="eyebrow">Join the Community</span>
-        <h2>Let's build this together</h2>
+        <h2>Let's build the next phases together</h2>
 
         <div class="big-quote">
           "OpenDataBridge is the integration layer your entire org shares — built in the open, governed by the teams
@@ -1181,32 +1671,32 @@
           <div class="card">
             <div class="card-icon">⭐</div>
             <h3>Star &amp; watch the repo</h3>
-            <p>Follow progress and get notified when Phase 1 ships</p>
+            <p>Follow progress through Phases 2–6</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔌</div>
+            <h3>Claim a connector</h3>
+            <p>Write a manifest, run the scaffold script, own it for the community</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🧪</div>
+            <h3>Validate on live services</h3>
+            <p>Help verify S3, COS, Glue, Snowflake, Databricks and monday against real accounts</p>
           </div>
           <div class="card">
             <div class="card-icon">🐛</div>
             <h3>File a use-case issue</h3>
             <p>Tell us the cross-system query your team answers manually today</p>
           </div>
-          <div class="card">
-            <div class="card-icon">🔌</div>
-            <h3>Claim a connector</h3>
-            <p>Pick a tool your team uses — own the connector for the community</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">💬</div>
-            <h3>Join the channel</h3>
-            <p>Discuss architecture, RFCs, and roadmap priorities with the core team</p>
-          </div>
         </div>
 
         <div class="foot-note">
           <img src="slack-emoji-pumpkin.png" alt="" class="pumpkin pumpkin-xs">
-          OpenDataBridge — Hacktoberfest Community Project Pitch
+          OpenDataBridge — Hacktoberfest Community Project
           <img src="slack-emoji-pumpkin.png" alt="" class="pumpkin pumpkin-xs">
         </div>
       </div>
-      <span class="slide-n">11 /11</span>
+      <span class="slide-n">15 /15</span>
     </section>
 
   </div><!-- /#deck -->
